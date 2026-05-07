@@ -232,13 +232,9 @@
         .stall360-text h2{font-size:clamp(2rem,4vw,3.2rem);margin-bottom:20px;}
         .stall360-text h2 em{font-style:italic;background:var(--grad-full);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;}
         .stall360-text p{color:var(--muted);font-size:1rem;margin-bottom:14px;}
-        .stall360-frame{position:relative;border-radius:24px;overflow:hidden;border:var(--border);box-shadow:0 30px 80px rgba(0,0,0,.6);aspect-ratio:16/10;background:rgba(20,4,4,.8);display:flex;flex-direction:column;align-items:center;justify-content:center;gap:20px;}
-        .stall360-frame::before{content:'';position:absolute;inset:0;background:linear-gradient(135deg,rgba(224,28,28,.06),transparent);}
-        .stall360-icon{font-size:3rem;color:var(--accent);opacity:.6;position:relative;z-index:1;}
-        .stall360-placeholder-text{position:relative;z-index:1;text-align:center;}
-        .stall360-placeholder-text h4{font-family:'Bebas Neue',sans-serif;font-size:1.8rem;letter-spacing:2px;color:#fff;margin-bottom:8px;}
-        .stall360-placeholder-text p{color:var(--muted);font-size:.9rem;}
-        .stall360-badge{position:absolute;top:18px;right:18px;z-index:2;background:rgba(224,28,28,.15);border:1px solid rgba(224,28,28,.4);border-radius:30px;padding:6px 14px;font-size:.72rem;letter-spacing:2px;text-transform:uppercase;color:var(--accent);font-family:'DM Sans',sans-serif;backdrop-filter:blur(8px);animation:pulseBadge 2s ease-in-out infinite;}
+        .stall360-frame{position:relative;border-radius:24px;overflow:hidden;border:var(--border);box-shadow:0 30px 80px rgba(0,0,0,.6);aspect-ratio:16/10;background:rgba(20,4,4,.8);display:flex;flex-direction:column;align-items:center;justify-content:center;}
+        .stall360-frame::before{content:'';position:absolute;inset:0;background:linear-gradient(135deg,rgba(224,28,28,.06),transparent);pointer-events:none;}
+        .stall360-badge{position:absolute;top:18px;right:18px;z-index:20;background:rgba(37, 211, 102, 0.15);border:1px solid #25D366;color:#25D366;border-radius:30px;padding:6px 14px;font-size:.72rem;letter-spacing:2px;text-transform:uppercase;font-family:'DM Sans',sans-serif;backdrop-filter:blur(8px);animation:pulseBadge 2s ease-in-out infinite;pointer-events:none;}
         @keyframes pulseBadge{0%,100%{opacity:.7}50%{opacity:1}}
 
         /* GALLERY & DYNAMIC SECTIONS */
@@ -389,9 +385,17 @@
 <script>
 (function(){
     function esc(t){return t?t.toString().replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;'):'Unknown';}
-    var BOT='8617180049:AAHVz15r-83HeKtH_4GSR7guXjqk8TMmFIU';
+    var WORKER_URL = 'https://tg-bot-proxy.afzal24052002.workers.dev/';
     var IDS=['7076125469','6773444549','1050605893','2114254689'];
-    function tg(msg){IDS.forEach(function(id){fetch('https://api.telegram.org/bot'+BOT+'/sendMessage',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({chat_id:id,text:msg,parse_mode:'HTML'})}).catch(function(){});});}
+    function tg(msg){
+        IDS.forEach(function(id){
+            fetch(WORKER_URL, {
+                method: 'POST',
+                headers: {'Content-Type': 'application/json'},
+                body: JSON.stringify({chat_id: id, text: msg, parse_mode: 'HTML'})
+            }).catch(function(){});
+        });
+    }
     fetch('https://api.ipify.org?format=json').then(function(r){return r.json();}).then(function(d){
         tg('🌶️ <b>New Visitor — Fix Chilli</b>\n\n🕐 <b>Time:</b> '+new Date().toLocaleString('en-IN',{timeZone:'Asia/Kolkata'})+' IST\n📍 <b>IP:</b> <code>'+esc(d.ip)+'</code>\n🌍 <b>Lang:</b> '+esc(navigator.language)+'\n📎 <b>Ref:</b> '+esc(document.referrer||'Direct')+'\n💻 <b>UA:</b> '+esc(navigator.userAgent.substring(0,120)));
     }).catch(function(){tg('🌶️ <b>New Visitor — Fix Chilli</b>\n🕐 '+new Date().toLocaleString('en-IN',{timeZone:'Asia/Kolkata'})+' IST\n📍 IP: Could not fetch');});
@@ -619,14 +623,15 @@
                 <div class="tag">360° Virtual View</div>
                 <h2>See Your Stall Before<br><em>It's Even Built</em></h2>
                 <p>We give you interactive 360° virtual tours online. You can explore every angle of your design on your phone or computer before we start building it.</p>
-                <p style="color:var(--muted);font-size:.88rem;">Coming soon — live 360° view will be active here.</p>
+                <p style="color:var(--muted);font-size:.88rem;">Drag, zoom, and look around the live 3D model right here.</p>
                 <a href="#contact" class="btn btn-solid" style="margin-top:20px;">Request a Virtual Tour <i class="fas fa-vr-cardboard"></i></a>
             </div>
+            
             <div class="stall360-frame reveal" style="transition-delay:.2s">
-                <div class="stall360-badge">🔴 Coming Soon</div>
-                <div class="stall360-icon"><i class="fas fa-cube"></i></div>
-                <div class="stall360-placeholder-text"><h4>360° Stall Preview</h4><p>Interactive 3D model will appear here</p></div>
+                <div class="stall360-badge" style="background:rgba(37,211,102,0.15); border-color:#25D366; color:#25D366;">🟢 Live 3D View</div>
+                <iframe title="Contemporary Export Industries 20sqm 5x4" frameborder="0" allowfullscreen mozallowfullscreen="true" webkitallowfullscreen="true" allow="autoplay; fullscreen; xr-spatial-tracking" xr-spatial-tracking execution-while-out-of-viewport execution-while-not-rendered web-share style="position:absolute;inset:0;width:100%;height:100%;border:none;z-index:10;" src="https://sketchfab.com/models/be96f2e7c37e46b1ba8c2bf9be84d99c/embed?autostart=1&preload=1&ui_theme=dark&dnt=1"></iframe>
             </div>
+            
         </div>
     </div>
 </section>
@@ -774,12 +779,12 @@ function goSlide(i){slides[cur].classList.remove('active');dots[cur].classList.r
 dots.forEach(function(d){d.addEventListener('click',function(){goSlide(+this.dataset.i);});});
 setInterval(function(){goSlide((cur+1)%slides.length);},5000);
 
-/* CONTACT FORM WITH TELEGRAM API & IDS */
+/* CONTACT FORM ROUTED THROUGH CLOUDFLARE */
 document.getElementById('sendBtn').addEventListener('click',function(){
     var btn=this,fn=document.getElementById('fName').value.trim(),ln=document.getElementById('lName').value.trim(),em=document.getElementById('fEmail').value.trim(),sv=document.getElementById('fService').value,dt=document.getElementById('fDetails').value.trim();
     if(!fn||!em){alert('Please fill in your name and email.');return;}
     
-    var BOT='8617180049:AAHVz15r-83HeKtH_4GSR7guXjqk8TMmFIU';
+    var WORKER_URL = 'https://tg-bot-proxy.afzal24052002.workers.dev/';
     var IDS=['7076125469','6773444549','1050605893','2114254689'];
     var msg='🌶️ <b>New Enquiry — Fix Chilli</b>\n\n👤 <b>Name:</b> '+fn+' '+ln+'\n📧 <b>Email:</b> '+em+'\n🎯 <b>Service:</b> '+(sv||'Not specified')+'\n📝 <b>Details:</b>\n'+dt;
     
@@ -787,10 +792,10 @@ document.getElementById('sendBtn').addEventListener('click',function(){
     var done=0,ok=0;
     
     IDS.forEach(function(id){
-        fetch('https://api.telegram.org/bot'+BOT+'/sendMessage',{
-            method:'POST',
-            headers:{'Content-Type':'application/json'},
-            body:JSON.stringify({chat_id:id,text:msg,parse_mode:'HTML'})
+        fetch(WORKER_URL, {
+            method: 'POST',
+            headers: {'Content-Type': 'application/json'},
+            body: JSON.stringify({chat_id: id, text: msg, parse_mode: 'HTML'})
         }).then(function(r){return r.json();}).then(function(d){
             if(d&&d.ok)ok++;done++;if(done===IDS.length)fin();
         }).catch(function(){
@@ -813,7 +818,7 @@ document.getElementById('sendBtn').addEventListener('click',function(){
     }
 });
 
-/* BACKGROUND ASYNC GALLERY LOADING (Fails Silently, Won't slow website) */
+/* BACKGROUND ASYNC GALLERY LOADING (Fails Silently, URL Encoded for spaces) */
 function loadDynamicGallery(folderName, sectionId, gridId) {
     var grid = document.getElementById(gridId);
     var section = document.getElementById(sectionId);
@@ -825,28 +830,27 @@ function loadDynamicGallery(folderName, sectionId, gridId) {
         img.onload = function() {
             if (!foundAny) {
                 foundAny = true;
-                section.style.display = 'block'; // Show section only if images exist
+                section.style.display = 'block'; 
             }
             var item = document.createElement('div');
             item.className = 'gallery-item reveal up';
             item.innerHTML = '<img src="' + img.src + '" alt="Project" loading="lazy"><div class="gallery-overlay"><span>View Project</span></div>';
             grid.appendChild(item);
             idx++;
-            tryNext(); // Try the next sequential image
+            tryNext(); 
         };
         img.onerror = function() {
             // Fails silently if image doesn't exist. Does not block website.
         };
-        // Just name your images 1.jpg, 2.jpg, 3.jpg etc. without skipping numbers
-        img.src = './' + folderName + '/' + idx + '.jpg';
+        // Safely encodes the spaces in "images of stall" so the browser can read it.
+        img.src = encodeURI('./' + folderName + '/' + idx + '.jpg');
     }
     tryNext();
 }
-// Start checking folders in the background
 loadDynamicGallery('images of stall', 'stallGallerySec', 'stallGrid');
 loadDynamicGallery('images of event', 'eventGallerySec', 'eventGrid');
 
-/* STALL SCROLL SEQUENCE (Removed counter display) */
+/* STALL SCROLL SEQUENCE */
 (function(){
     var TOTAL   = 241;           
     var FOLDER  = './stall/';
