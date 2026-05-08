@@ -4,9 +4,10 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     
-    <title>Fix Chilli | Best Exhibition Stalls & 3D LED Events</title>
+    <title>Fix Chilli | Events, Exhibition Stalls & 3D Visuals</title>
     <meta name="description" content="Fix Chilli creates amazing exhibition stalls, manages corporate events, and produces mind-blowing 3D LED anamorphic visuals in Bengaluru and across India.">
     <meta name="keywords" content="Fix Chilli, Exhibition Stall Designer, Event Management Bangalore, 3D LED Visuals, Naked-Eye 3D, Virtual Stalls, Brand Activations">
+    <meta name="author" content="Fix Chilli">
     <meta name="robots" content="index, follow">
     <meta property="og:title" content="Fix Chilli | Events & 3D Visuals">
     <meta property="og:description" content="We build amazing events, beautiful exhibition stalls, and mind-blowing 3D LED visuals.">
@@ -42,6 +43,14 @@
         .cur-ring{width:38px;height:38px;border:1.5px solid rgba(224,28,28,0.5);transition:width .25s,height .25s,border-color .25s,background .25s;}
         .cur-ring.hov{width:58px;height:58px;background:rgba(224,28,28,0.07);border-color:var(--accent);}
         .cur-dot.hov{transform:translate(-50%,-50%) scale(0.4);}
+
+        /* LIGHTBOX (IMAGE POPUP) */
+        #lightbox { position: fixed; inset: 0; background: rgba(5,5,5,0.95); z-index: 100000; display: none; align-items: center; justify-content: center; opacity: 0; transition: opacity 0.3s ease; cursor: zoom-out; backdrop-filter: blur(10px); -webkit-backdrop-filter: blur(10px); }
+        #lightbox.active { display: flex; opacity: 1; }
+        #lightbox img { max-width: 90%; max-height: 85vh; border-radius: 12px; box-shadow: 0 20px 60px rgba(0,0,0,0.8); transform: scale(0.95); transition: transform 0.3s cubic-bezier(0.34,1.56,0.64,1); object-fit: contain; }
+        #lightbox.active img { transform: scale(1); }
+        .lb-close { position: absolute; top: 20px; right: 30px; color: #fff; font-size: 2.5rem; cursor: pointer; opacity: 0.7; transition: var(--trans); }
+        .lb-close:hover { opacity: 1; color: var(--accent); transform: scale(1.1); }
 
         /* PRELOADER */
         #preloader{position:fixed;inset:0;background:var(--bg);display:flex;align-items:center;justify-content:center;z-index:10000;overflow:hidden;}
@@ -240,14 +249,14 @@
         /* GALLERY & DYNAMIC SECTIONS */
         .gallery{background:linear-gradient(180deg,var(--bg),var(--bg2));}
         .gallery-grid{display:grid;grid-template-columns:repeat(3,1fr);grid-template-rows:auto auto;gap:16px;}
-        .gallery-item{position:relative;overflow:hidden;border-radius:16px;border:var(--border);cursor:none;background:rgba(20,4,4,.5);}
+        .gallery-item{position:relative;overflow:hidden;border-radius:16px;border:var(--border);cursor:zoom-in;background:rgba(20,4,4,.5);}
         .gallery-item:nth-child(1){grid-column:1/3;grid-row:1/2;aspect-ratio:16/8;}
         .gallery-item:not(:nth-child(1)){aspect-ratio:4/3;}
         .gallery-item img{width:100%;height:100%;object-fit:cover;transition:transform .6s var(--ease);display:block;}
         .gallery-item:hover img{transform:scale(1.07);}
-        .gallery-item::after{content:'';position:absolute;inset:0;background:linear-gradient(to top,rgba(200,15,15,.3),transparent 60%);opacity:0;transition:opacity .4s;}
+        .gallery-item::after{content:'';position:absolute;inset:0;background:linear-gradient(to top,rgba(200,15,15,.3),transparent 60%);opacity:0;transition:opacity .4s;pointer-events:none;}
         .gallery-item:hover::after{opacity:1;}
-        .gallery-overlay{position:absolute;inset:0;display:flex;align-items:flex-end;padding:24px;z-index:2;opacity:0;transition:opacity .4s;}
+        .gallery-overlay{position:absolute;inset:0;display:flex;align-items:flex-end;padding:24px;z-index:2;opacity:0;transition:opacity .4s;pointer-events:none;}
         .gallery-item:hover .gallery-overlay{opacity:1;}
         .gallery-overlay span{font-size:.8rem;letter-spacing:2px;text-transform:uppercase;color:#fff;font-family:'DM Sans',sans-serif;font-weight:500;}
         
@@ -381,6 +390,11 @@
     </style>
 </head>
 <body>
+
+<div id="lightbox" onclick="closeLightbox()">
+    <span class="lb-close">&times;</span>
+    <img id="lb-img" src="" alt="Fullscreen Image">
+</div>
 
 <script>
 (function(){
@@ -532,10 +546,10 @@
             <p>Fix Chilli is a complete event and stall design company. We believe every brand deserves a great story. We use bold visuals and amazing setups to make your brand stand out and grab attention.</p>
             <p>From small setups to huge exhibition halls, our team handles everything from start to finish.</p>
             <div class="counters">
-                <div class="counter-item"><div class="num count" data-target="250">0</div><p>Events Done</p></div>
-                <div class="counter-item"><div class="num count" data-target="180">0</div><p>Happy Clients</p></div>
-                <div class="counter-item"><div class="num count" data-target="120">0</div><p>Stalls Built</p></div>
-                <div class="counter-item"><div class="num count" data-target="15">0</div><p>Cities Covered</p></div>
+                <div class="counter-item"><div class="num count" data-target="250">250+</div><p>Events Done</p></div>
+                <div class="counter-item"><div class="num count" data-target="180">180+</div><p>Happy Clients</p></div>
+                <div class="counter-item"><div class="num count" data-target="120">120+</div><p>Stalls Built</p></div>
+                <div class="counter-item"><div class="num count" data-target="15">15+</div><p>Cities Covered</p></div>
             </div>
         </div>
     </div>
@@ -640,11 +654,11 @@
     <div class="container">
         <div class="section-head reveal"><div class="tag">Our Work</div><h2>Beautiful Projects</h2><p>Take a look at the events and stalls we have built for our clients.</p></div>
         <div class="gallery-grid reveal">
-            <div class="gallery-item"><img src="./image/1.jpg" alt="Project" loading="lazy" onerror="this.parentElement.style.background='linear-gradient(135deg,#1a0000,#2d0000)'"><div class="gallery-overlay"><span>Featured Project</span></div></div>
-            <div class="gallery-item"><img src="./image/2.jpg" alt="Project" loading="lazy" onerror="this.parentElement.style.background='linear-gradient(135deg,#2d0000,#1a0000)'"><div class="gallery-overlay"><span>Exhibition Stall</span></div></div>
-            <div class="gallery-item"><img src="./image/3.jpg" alt="Project" loading="lazy" onerror="this.parentElement.style.background='linear-gradient(135deg,#1a0000,#400000)'"><div class="gallery-overlay"><span>Event Setup</span></div></div>
-            <div class="gallery-item"><img src="./image/4.jpg" alt="Project" loading="lazy" onerror="this.parentElement.style.background='linear-gradient(135deg,#400000,#1a0000)'"><div class="gallery-overlay"><span>Brand Activation</span></div></div>
-            <div class="gallery-item"><img src="./image/5.jpg" alt="Project" loading="lazy" onerror="this.parentElement.style.background='linear-gradient(135deg,#1a0000,#2d0000)'"><div class="gallery-overlay"><span>3D LED Setup</span></div></div>
+            <div class="gallery-item"><img src="./image/1.jpg" alt="Project" loading="lazy" onerror="this.parentElement.style.background='linear-gradient(135deg,#1a0000,#2d0000)'"><div class="gallery-overlay"><span>Tap to View</span></div></div>
+            <div class="gallery-item"><img src="./image/2.jpg" alt="Project" loading="lazy" onerror="this.parentElement.style.background='linear-gradient(135deg,#2d0000,#1a0000)'"><div class="gallery-overlay"><span>Tap to View</span></div></div>
+            <div class="gallery-item"><img src="./image/3.jpg" alt="Project" loading="lazy" onerror="this.parentElement.style.background='linear-gradient(135deg,#1a0000,#400000)'"><div class="gallery-overlay"><span>Tap to View</span></div></div>
+            <div class="gallery-item"><img src="./image/4.jpg" alt="Project" loading="lazy" onerror="this.parentElement.style.background='linear-gradient(135deg,#400000,#1a0000)'"><div class="gallery-overlay"><span>Tap to View</span></div></div>
+            <div class="gallery-item"><img src="./image/5.jpg" alt="Project" loading="lazy" onerror="this.parentElement.style.background='linear-gradient(135deg,#1a0000,#2d0000)'"><div class="gallery-overlay"><span>Tap to View</span></div></div>
         </div>
     </div>
 </section>
@@ -744,12 +758,32 @@
 </footer>
 
 <script>
+/* LIGHTBOX (IMAGE POPUP) LOGIC */
+function openLightbox(src) {
+    var lb = document.getElementById('lightbox');
+    document.getElementById('lb-img').src = src;
+    lb.style.display = 'flex';
+    setTimeout(function(){ lb.classList.add('active'); }, 10);
+}
+function closeLightbox() {
+    var lb = document.getElementById('lightbox');
+    lb.classList.remove('active');
+    setTimeout(function(){ lb.style.display = 'none'; }, 300);
+}
+document.addEventListener('click', function(e) {
+    var item = e.target.closest('.gallery-item');
+    if (item) {
+        var img = item.querySelector('img');
+        if (img) openLightbox(img.src);
+    }
+});
+
 /* CURSOR */
 (function(){
     var dot=document.getElementById('curDot'),ring=document.getElementById('curRing'),mx=0,my=0,rx=0,ry=0;
     document.addEventListener('mousemove',function(e){mx=e.clientX;my=e.clientY;dot.style.transform='translate('+(mx-3)+'px,'+(my-3)+'px)';});
     (function a(){rx+=(mx-rx)*.12;ry+=(my-ry)*.12;ring.style.transform='translate('+(rx-19)+'px,'+(ry-19)+'px)';requestAnimationFrame(a);})();
-    document.querySelectorAll('a,button,input,select,textarea,.dock-btn').forEach(function(el){
+    document.querySelectorAll('a,button,input,select,textarea,.dock-btn,.gallery-item').forEach(function(el){
         el.addEventListener('mouseenter',function(){dot.classList.add('hov');ring.classList.add('hov');});
         el.addEventListener('mouseleave',function(){dot.classList.remove('hov');ring.classList.remove('hov');});
     });
@@ -767,11 +801,25 @@ document.querySelectorAll('.nav-links a').forEach(function(a){a.addEventListener
 var obs=new IntersectionObserver(function(e){e.forEach(function(x){if(x.isIntersecting)x.target.classList.add('up');});},{threshold:.1});
 document.querySelectorAll('.reveal').forEach(function(el){obs.observe(el);});
 
-/* COUNTERS */
+/* COUNTERS (Fixed to start from 0 on scroll) */
 var counted=false;
-new IntersectionObserver(function(e){
-    if(e.isIntersecting&&!counted){counted=true;document.querySelectorAll('.count').forEach(function(el){var t=+el.dataset.target,s=0,step=Math.ceil(t/60);var iv=setInterval(function(){s+=step;if(s>=t){s=t;clearInterval(iv);}el.textContent=s+'+';},1800/60);});}
-},{threshold:.3}).observe(document.querySelector('.counters')||document.body);
+var counterSection = document.querySelector('.counters');
+if (counterSection) {
+    new IntersectionObserver(function(e){
+        if(e.isIntersecting && !counted){
+            counted=true;
+            document.querySelectorAll('.count').forEach(function(el){
+                var t=+el.dataset.target, s=0, step=Math.ceil(t/60);
+                el.textContent = '0+'; // Reset to 0 when it starts counting
+                var iv=setInterval(function(){
+                    s+=step;
+                    if(s>=t){s=t;clearInterval(iv);}
+                    el.textContent=s+'+';
+                }, 30);
+            });
+        }
+    },{threshold:.3}).observe(counterSection);
+}
 
 /* TESTIMONIALS */
 var slides=document.querySelectorAll('.testi-slide'),dots=document.querySelectorAll('.testi-dot'),cur=0;
@@ -834,7 +882,7 @@ function loadDynamicGallery(folderName, sectionId, gridId) {
             }
             var item = document.createElement('div');
             item.className = 'gallery-item reveal up';
-            item.innerHTML = '<img src="' + img.src + '" alt="Project" loading="lazy"><div class="gallery-overlay"><span>View Project</span></div>';
+            item.innerHTML = '<img src="' + img.src + '" alt="Project" loading="lazy"><div class="gallery-overlay"><span>Tap to View</span></div>';
             grid.appendChild(item);
             idx++;
             tryNext(); 
