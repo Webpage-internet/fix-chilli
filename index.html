@@ -13,7 +13,7 @@
     <meta property="og:title" content="Fix Chilli | Events & 3D Visuals">
     <meta property="og:description" content="We build amazing events, beautiful exhibition stalls, and mind-blowing 3D LED visuals.">
     
-    <!-- FAVICON FOR GOOGLE SEARCH RESULTS (Fixes the Globe Icon) -->
+    <!-- FAVICON FOR GOOGLE SEARCH RESULTS -->
     <link rel="icon" type="image/png" href="./fixchillilogo.png">
     <link rel="apple-touch-icon" href="./fixchillilogo.png">
     <link rel="shortcut icon" type="image/png" href="./fixchillilogo.png">
@@ -241,7 +241,6 @@
         .stall360-frame iframe { position: absolute; inset: 0; width: 100%; height: 100%; border: none; z-index: 10; }
 
         /* VIDEO WALKTHROUGHS GRID */
-        .video-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 20px; margin-top: 30px; margin-bottom: 50px; }
         .video-grid-2 { display: grid; grid-template-columns: repeat(2, 1fr); gap: 20px; margin-top: 30px; }
         .vid-frame { position: relative; border-radius: 16px; overflow: hidden; border: var(--border); aspect-ratio: 16/9; background: #000; box-shadow: 0 10px 30px rgba(0,0,0,0.5); transition: var(--trans); }
         .vid-frame:hover { border-color: rgba(224,28,28,0.4); transform: translateY(-4px); }
@@ -261,10 +260,12 @@
         .gallery-item:hover .gallery-overlay{opacity:1;}
         .gallery-overlay span{font-size:.8rem;letter-spacing:2px;text-transform:uppercase;color:#fff;font-family:'DM Sans',sans-serif;font-weight:500;}
         
-        /* Auto-loading Galleries */
-        .dyn-gallery-section{background:var(--bg2);padding-top:100px;}
-        .dyn-gallery-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:16px; margin-top:30px;}
+        /* Auto-loading Galleries Folders */
+        .dyn-gallery-section{background:var(--bg2); padding-top:40px; padding-bottom: 80px;}
+        .dyn-gallery-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:16px; margin-top:20px;}
         .dyn-gallery-grid .gallery-item{aspect-ratio:4/3;}
+        .album-load-btn { width: 100%; min-height: 80px; font-size: 1.1rem; margin-bottom: 20px; border-radius: 20px; display: flex; align-items: center; justify-content: center; gap: 12px; background: rgba(224,28,28,0.05); border: 1px dashed rgba(224,28,28,0.4); color: var(--accent); cursor: pointer; transition: var(--trans); font-family: 'DM Sans', sans-serif; font-weight: 600; letter-spacing: 1px; text-transform: uppercase; }
+        .album-load-btn:hover { background: rgba(224,28,28,0.15); border-style: solid; }
 
         /* TESTIMONIALS */
         .testi{background:linear-gradient(180deg,var(--bg2),var(--bg));}
@@ -347,7 +348,7 @@
             .about-grid,.contact-wrap,.stall360-grid{grid-template-columns:1fr;}
             .services-grid{grid-template-columns:repeat(2,1fr);}
             .features-grid{grid-template-columns:repeat(2,1fr);}
-            .ana-grid, .video-grid{grid-template-columns:repeat(2,1fr);}
+            .ana-grid, .video-grid-2{grid-template-columns:repeat(2,1fr);}
             .gallery-grid{grid-template-columns:repeat(2,1fr);grid-template-rows:auto;}
             .gallery-item:nth-child(1){grid-column:1/3;grid-row:auto;aspect-ratio:16/7;}
             .gallery-item:not(:nth-child(1)){aspect-ratio:4/3;}
@@ -365,7 +366,7 @@
             .nav-links.open{right:0;}
             .nav-cta{display:none;}
             .mobile-toggle{display:block;}
-            .services-grid,.features-grid,.gallery-grid,.footer-inner,.ana-grid,.video-grid,.video-grid-2{grid-template-columns:1fr;}
+            .services-grid,.features-grid,.gallery-grid,.footer-inner,.ana-grid,.video-grid-2{grid-template-columns:1fr;}
             .gallery-item:nth-child(1){grid-column:auto;aspect-ratio:4/3;}
             .gallery-item{aspect-ratio:4/3;}
             .footer-brand{grid-column:auto;}
@@ -386,7 +387,6 @@
         }
         @media(max-width:480px){
             .dyn-gallery-grid{grid-template-columns:1fr;}
-            .sf-btn { width: 100%; justify-content: center; }
         }
     </style>
 </head>
@@ -556,7 +556,6 @@
             <p>Fix Chilli is a complete event and stall design company. We believe every brand deserves a great story. We use bold visuals and amazing setups to make your brand stand out and grab attention.</p>
             <p>From small setups to huge exhibition halls, our team handles everything from start to finish.</p>
             <div class="counters">
-                <!-- Hardcoded numbers inside the tags so they show up immediately even if JS delays -->
                 <div class="counter-item"><div class="num count" data-target="250">250+</div><p>Events Done</p></div>
                 <div class="counter-item"><div class="num count" data-target="180">180+</div><p>Happy Clients</p></div>
                 <div class="counter-item"><div class="num count" data-target="120">120+</div><p>Stalls Built</p></div>
@@ -654,9 +653,8 @@
             <p>Check out interactive 360° virtual tours of the premium exhibition stalls we have designed and built for our previous clients. Click the play button to load, then drag and zoom to explore every angle.</p>
         </div>
         
-        <!-- SKETCHFAB 3D MODELS GRID (Loaded One by One via Scroll/Click) -->
+        <!-- SKETCHFAB 3D MODELS GRID -->
         <div class="stall360-grid">
-            
             <div class="stall360-frame reveal">
                 <iframe title="Eminent International" frameborder="0" allowfullscreen mozallowfullscreen="true" webkitallowfullscreen="true" allow="autoplay; fullscreen; xr-spatial-tracking" xr-spatial-tracking execution-while-out-of-viewport execution-while-not-rendered web-share src="https://sketchfab.com/models/8c9c9cb4bec0458f93eea3d5e49f5414/embed?autostart=0&ui_theme=dark"></iframe>
             </div>
@@ -680,33 +678,21 @@
             <div class="stall360-frame reveal" style="transition-delay:.2s">
                 <iframe title="21 Sqm 2side open" frameborder="0" allowfullscreen mozallowfullscreen="true" webkitallowfullscreen="true" allow="autoplay; fullscreen; xr-spatial-tracking" xr-spatial-tracking execution-while-out-of-viewport execution-while-not-rendered web-share src="https://sketchfab.com/models/fb978a0aeaf34217baab2c514fd980d2/embed?autostart=0&ui_theme=dark"></iframe>
             </div>
-            
         </div>
     </div>
 </section>
 
-<!-- VIDEO WALKTHROUGHS SECTION (NEW) -->
+<!-- VIDEO WALKTHROUGHS SECTION -->
 <section id="video-walkthroughs" class="section-pad" style="background: linear-gradient(180deg, var(--bg), var(--bg2)); border-top: var(--border);">
     <div class="container">
         
         <div class="section-head reveal">
             <div class="tag">Cinematic Tours</div>
-            <h2>Event & Stall <br><em>Video Walkthroughs</em></h2>
-            <p>Experience our premium event setups and exhibition stalls through immersive video tours.</p>
-        </div>
-
-        <!-- EVENTS VIDEO GRID -->
-        <h3 style="margin-bottom: 24px; font-family: 'Bebas Neue', sans-serif; font-size: 2.2rem; color: var(--accent); letter-spacing: 2px;" class="reveal">Event 3D Walkthroughs</h3>
-        <div class="video-grid reveal">
-            <div class="vid-frame"><iframe src="https://www.youtube.com/embed/GAohxFEqQEk" allowfullscreen></iframe></div>
-            <div class="vid-frame"><iframe src="https://www.youtube.com/embed/pHaWkNx_sMI" allowfullscreen></iframe></div>
-            <div class="vid-frame"><iframe src="https://www.youtube.com/embed/clUVDZZJASo" allowfullscreen></iframe></div>
-            <div class="vid-frame"><iframe src="https://www.youtube.com/embed/V2axb7UXgwo" allowfullscreen></iframe></div>
-            <div class="vid-frame"><iframe src="https://www.youtube.com/embed/PXftdm_hn7A" allowfullscreen></iframe></div>
+            <h2>Stall Video Walkthroughs</h2>
+            <p>Experience our premium exhibition stalls through immersive video tours.</p>
         </div>
 
         <!-- STALL VIDEO GRID -->
-        <h3 style="margin-bottom: 24px; font-family: 'Bebas Neue', sans-serif; font-size: 2.2rem; color: var(--accent); letter-spacing: 2px; margin-top: 60px;" class="reveal">Stall Video Walkthroughs</h3>
         <div class="video-grid-2 reveal">
             <div class="vid-frame"><iframe src="https://www.youtube.com/embed/zEh-v7TSHKk" allowfullscreen></iframe></div>
             <div class="vid-frame"><iframe src="https://www.youtube.com/embed/i2Y2r8uZ0u8" allowfullscreen></iframe></div>
@@ -729,19 +715,30 @@
     </div>
 </section>
 
-<!-- DYNAMIC STALL GALLERY (Hidden if no images found) -->
-<section class="dyn-gallery-section" id="stallGallerySec" style="display:none;">
+<!-- DYNAMIC ALBUMS (Tap to Load) -->
+<section class="dyn-gallery-section" id="albumsSec">
     <div class="container">
-        <div class="section-head reveal"><div class="tag">Stall Designs</div><h2>Exhibition Stalls</h2><p>Scroll down to see our completed stall projects.</p></div>
-        <div class="dyn-gallery-grid" id="stallGrid"></div>
-    </div>
-</section>
+        <div class="section-head reveal">
+            <div class="tag">Full Portfolios</div>
+            <h2>Explore Complete Albums</h2>
+            <p>Tap a folder to load all our past projects.</p>
+        </div>
+        
+        <!-- STALL ALBUM -->
+        <div class="reveal" style="margin-bottom: 60px;">
+            <button id="loadStallsBtn" class="album-load-btn" onclick="loadAlbum('images of stall', 'loadStallsBtn', 'stallGrid')">
+                <i class="fas fa-folder-open"></i> Load Exhibition Stalls Album
+            </button>
+            <div class="dyn-gallery-grid" id="stallGrid" style="display:none;"></div>
+        </div>
 
-<!-- DYNAMIC EVENT GALLERY (Hidden if no images found) -->
-<section class="dyn-gallery-section" id="eventGallerySec" style="display:none; padding-bottom: 80px;">
-    <div class="container">
-        <div class="section-head reveal"><div class="tag">Live Events</div><h2>Event Management</h2><p>Moments from our beautifully managed corporate and live events.</p></div>
-        <div class="dyn-gallery-grid" id="eventGrid"></div>
+        <!-- EVENT ALBUM -->
+        <div class="reveal">
+            <button id="loadEventsBtn" class="album-load-btn" onclick="loadAlbum('images of event', 'loadEventsBtn', 'eventGrid')">
+                <i class="fas fa-folder-open"></i> Load Event Management Album
+            </button>
+            <div class="dyn-gallery-grid" id="eventGrid" style="display:none;"></div>
+        </div>
     </div>
 </section>
 
@@ -868,7 +865,7 @@ document.addEventListener('click', function(e) {
     var dot=document.getElementById('curDot'),ring=document.getElementById('curRing'),mx=0,my=0,rx=0,ry=0;
     document.addEventListener('mousemove',function(e){mx=e.clientX;my=e.clientY;dot.style.transform='translate('+(mx-3)+'px,'+(my-3)+'px)';});
     (function a(){rx+=(mx-rx)*.12;ry+=(my-ry)*.12;ring.style.transform='translate('+(rx-19)+'px,'+(ry-19)+'px)';requestAnimationFrame(a);})();
-    document.querySelectorAll('a,button,input,select,textarea,.dock-btn,.gallery-item').forEach(function(el){
+    document.querySelectorAll('a,button,input,select,textarea,.dock-btn,.gallery-item,.album-load-btn').forEach(function(el){
         el.addEventListener('mouseenter',function(){dot.classList.add('hov');ring.classList.add('hov');});
         el.addEventListener('mouseleave',function(){dot.classList.remove('hov');ring.classList.remove('hov');});
     });
@@ -886,7 +883,7 @@ document.querySelectorAll('.nav-links a').forEach(function(a){a.addEventListener
 var obs=new IntersectionObserver(function(e){e.forEach(function(x){if(x.isIntersecting)x.target.classList.add('up');});},{threshold:.1});
 document.querySelectorAll('.reveal').forEach(function(el){obs.observe(el);});
 
-/* COUNTERS (Fixed to start from 0 on scroll) */
+/* COUNTERS */
 var counted=false;
 var counterSection = document.querySelector('.counters');
 if (counterSection) {
@@ -951,37 +948,44 @@ document.getElementById('sendBtn').addEventListener('click',function(){
     }
 });
 
-/* BACKGROUND ASYNC GALLERY LOADING (Fails Silently, URL Encoded for spaces) */
-function loadDynamicGallery(folderName, sectionId, gridId) {
+/* DYNAMIC ALBUM LOADING (Tap to Load Feature) */
+function loadAlbum(folderName, btnId, gridId) {
+    var btn = document.getElementById(btnId);
     var grid = document.getElementById(gridId);
-    var section = document.getElementById(sectionId);
+    
+    // Change button state
+    btn.innerHTML = 'Loading Images... <i class="fas fa-spinner fa-spin"></i>';
+    btn.style.cursor = 'default';
+    btn.style.background = 'rgba(224,28,28,0.15)';
+    btn.disabled = true;
+    
+    grid.style.display = 'grid'; // Reveal the grid
+    
     var idx = 1;
     var foundAny = false;
 
     function tryNext() {
         var img = new Image();
         img.onload = function() {
-            if (!foundAny) {
-                foundAny = true;
-                section.style.display = 'block'; 
-            }
+            foundAny = true;
             var item = document.createElement('div');
             item.className = 'gallery-item reveal up';
             item.innerHTML = '<img src="' + img.src + '" alt="Project" loading="lazy"><div class="gallery-overlay"><span>Tap to View</span></div>';
             grid.appendChild(item);
             idx++;
-            tryNext(); 
+            tryNext(); // Try the next sequential image
         };
         img.onerror = function() {
-            // Fails silently if image doesn't exist. Does not block website.
+            // When an image fails to load, it means we reached the end of the folder.
+            btn.style.display = 'none'; // Hide the load button
+            if(!foundAny) {
+                grid.innerHTML = '<p style="color:var(--muted); text-align:center; width:100%; grid-column:1/-1;">Images will appear here once uploaded to the folder.</p>';
+            }
         };
-        // Safely encodes the spaces in "images of stall" so the browser can read it.
         img.src = encodeURI('./' + folderName + '/' + idx + '.jpg');
     }
     tryNext();
 }
-loadDynamicGallery('images of stall', 'stallGallerySec', 'stallGrid');
-loadDynamicGallery('images of event', 'eventGallerySec', 'eventGrid');
 
 /* STALL SCROLL SEQUENCE */
 (function(){
